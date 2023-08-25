@@ -109,7 +109,7 @@
 				1,
 				2,
 				6,
-				9
+				8
 			]
 		},
 		{
@@ -126,7 +126,7 @@
 			"sourceIndexes" : 
 			[
 				4,
-				8
+				9
 			]
 		}
 	],
@@ -177,13 +177,13 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "r_star_tree.hpp",
-			"sourceGroupIndex" : 2
+			"path" : "README.md",
+			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "README.md",
-			"sourceGroupIndex" : 0
+			"path" : "r_star_tree.h",
+			"sourceGroupIndex" : 2
 		}
 	],
 	"type" : "EXECUTABLE"

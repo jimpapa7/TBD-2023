@@ -14,6 +14,7 @@ static std::string const minlon ="26.4812000";
 static std::string const maxlon ="41.5322000";
 static std::string const minlat ="41.4438000";
 static std::string const maxlat ="26.5952000";
+//επιστρέφει τον αριθμό των blocks που αναφέρονται στο πρώτο block
 string getSubstringBetween(std::string input){
     std::string startStr="blocks=\"";
     std::string endStr="\"";
@@ -22,6 +23,7 @@ string getSubstringBetween(std::string input){
     std::size_t endPos=input.find(endStr,startPos);
     return input.substr(startPos,endPos-startPos);
 }
+//ελέγχει αν το τελευταίο block χωράει την εισερχόμενη εγγραφή
 int copyFileCheck(string existingFile,string newFile){
     ifstream oldFileR,newFileR;
     ofstream copyFile;
@@ -53,6 +55,7 @@ int copyFileCheck(string existingFile,string newFile){
     }
     return 2;
 }
+//η κλάση χρησιμοποιείται για να περιμένουμε την ολοκλήρωση της αντιγραφής
 int updateFile(string existingFile,string newFile,bool overUnder) {
     ifstream oldFileR, newFileR;
     ofstream copyFile;
@@ -67,6 +70,7 @@ int updateFile(string existingFile,string newFile,bool overUnder) {
     string deleteline = "</block>",copyString;
     string findBlock="<block id=\"" + numOfBlocks + "\"";
     int pos;
+    //ελέγχει αν το αρχείο είναι πάνω από το επιτρεπόμενο όριο
     if (overUnder) {
         while (getline(oldFileR, copyString)) {
             //Βρίσκει το τελευταίο μπλοκ
@@ -113,6 +117,7 @@ int updateFile(string existingFile,string newFile,bool overUnder) {
     return 2;
 }
 Actions::Actions(){}
+//εισάγει τη νέα εγγραφή
 void Actions::add_entry(string existingFile, string newFile){
     ifstream oldFileR,newFileR;
     ofstream copyFile;
@@ -152,7 +157,9 @@ void Actions::add_entry(string existingFile, string newFile){
     remove("BlockedMap.osm");
     rename("copyFile.osm","BlockedMap.osm");
 }
-int copyDelete(string block,string id){
+//διαγράφει μία εγγραφή με βάση το id της και το block στο οποίο βρίσκεται
+//λειτουργεί ως η ασύγχρονη κλάση για να περιμένουμε την αντιγραφή του αρχείου πριν να του αλλάξουμε όνομα
+int copyDelete(string block,string id) {
     ifstream oldFileR;
     ofstream copyFile;
     oldFileR.open("BlockedMap.osm");
@@ -165,6 +172,7 @@ int copyDelete(string block,string id){
     size_t found;
     int i = 0;
     string node;
+    //για να πάρει ακριβώς το string
     int length = 11 + id.length();
     id = " <node id=\"" + id;
     while (getline(oldFileR, copyString)) {
@@ -197,6 +205,7 @@ int copyDelete(string block,string id){
     }
     return 2;
 }
+//διαγράφει μία εγγραφή με βάση το id της και το block στο οποίο βρίσκεται
 void Actions::delete_entry(string block, string id) {
     std::future<int>myFuture = std::async(&copyDelete,block,id);
     int result=myFuture.get();

@@ -14,5 +14,6 @@ add_executable(TBD_2023
         main.cpp
         notepad.txt
         r_star_tree.cpp
-        r_star_tree.hpp
-        README.md)
+        README.md
+        r_star_tree.h
+        r_star_tree.h)
